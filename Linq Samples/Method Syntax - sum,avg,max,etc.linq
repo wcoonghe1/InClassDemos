@@ -19,3 +19,4 @@ select customer.BillItems.Sum(theBill => theBill.SalePrice * theBill.Quantity)).
 (from customer in Bills
 where customer.PaidStatus
 select customer.BillItems.Count()).Average()
+
