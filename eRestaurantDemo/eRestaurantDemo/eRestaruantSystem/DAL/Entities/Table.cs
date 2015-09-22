@@ -15,10 +15,12 @@ namespace eRestaruantSystem.DAL.Entities
     {
         [Key]
         public int TableID { get; set; }
+        [Required,Range(1,25)]
         public byte TableNumber { get; set; } //tiny int in SQL
         public bool Smoking { get; set; }
+        [Required]
         public int Capacity { get; set; }
-        public bool Available { get; set; }
+                public bool Available { get; set; }
 
         //Navigaion Properties
 
@@ -32,5 +34,11 @@ namespace eRestaruantSystem.DAL.Entities
         //howeer, we can still create the virtual navigation property to acomodate this relationship
 
         public virtual ICollection<Resevation> Resevations { get; set; }
+
+        public Table()
+        {
+            Available = true;
+            Smoking = false;
+        }
     }
 }

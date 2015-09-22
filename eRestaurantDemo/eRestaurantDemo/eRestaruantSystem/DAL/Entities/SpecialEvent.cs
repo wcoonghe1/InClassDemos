@@ -14,8 +14,13 @@ namespace eRestaruantSystem.DAL.Entities
     public class SpecialEvent
     {
         [Key]
+        [Required(ErrorMessage="An Event code is required, only one Character")]
+        [StringLength(1,ErrorMessage="Event Code is only one Character in length")]
         public string EventCode { get; set; }
+        [Required(ErrorMessage="Discription is a required field")]
+        [StringLength(30,ErrorMessage="Max 30 characters")]
         public string Description { get; set; }
+
         public bool Active { get; set; }
 
 
@@ -24,5 +29,13 @@ namespace eRestaruantSystem.DAL.Entities
 
         public virtual ICollection<Resevation> Resevations { get; set; }
         
+
+        //default values can be set in the class contructor
+
+        public SpecialEvent()
+        {
+            Active = true;
+
+        }
     }
 }

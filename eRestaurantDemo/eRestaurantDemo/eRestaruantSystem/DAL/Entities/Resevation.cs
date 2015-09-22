@@ -15,11 +15,18 @@ namespace eRestaruantSystem.DAL.Entities
     {
         [Key]
         public int ResevationID { get; set; }
+        [Required(ErrorMessage = "Sutomer name in required")]
+        [StringLength(30, MinimumLength=5)]
         public string CustomerName { get; set; }
         public DateTime ResevationDate { get; set; }
+        [Required,Range(1,16)]
         public int NumberInParty { get; set; }
+        [StringLength(15)]
         public string ContactPhone { get; set; }
+        [Required]
+        [StringLength(1)]
         public string ResevationStatus { get; set; }
+        [StringLength(1)]
         public string EventCode { get; set; }
 
         //NAvigation Prperties
