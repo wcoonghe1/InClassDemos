@@ -11,21 +11,21 @@ using System.ComponentModel.DataAnnotations;
 
 namespace eRestaruantSystem.DAL.Entities
 {
-    public class Resevation
+    public class Reservation
     {
         [Key]
-        public int ResevationID { get; set; }
+        public int ResrevationID { get; set; }
         [Required(ErrorMessage = "Sutomer name in required")]
         [StringLength(30, MinimumLength=5)]
         public string CustomerName { get; set; }
-        public DateTime ResevationDate { get; set; }
+        public DateTime ReservationDate { get; set; }
         [Required,Range(1,16)]
         public int NumberInParty { get; set; }
         [StringLength(15)]
         public string ContactPhone { get; set; }
         [Required]
         [StringLength(1)]
-        public string ResevationStatus { get; set; }
+        public string ReservationStatus { get; set; }
         [StringLength(1)]
         public string EventCode { get; set; }
 

@@ -27,7 +27,7 @@ namespace eRestaruantSystem.DAL.Entities
         //Navigation Virtual Property
         //this is a parent to the resevation table
 
-        public virtual ICollection<Resevation> Resevations { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
         
 
         //default values can be set in the class contructor

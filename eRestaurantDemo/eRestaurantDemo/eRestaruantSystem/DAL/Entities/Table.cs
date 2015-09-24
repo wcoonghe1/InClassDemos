@@ -33,7 +33,7 @@ namespace eRestaruantSystem.DAL.Entities
         //insted we will create an overloaded map in our DbContext Class.
         //howeer, we can still create the virtual navigation property to acomodate this relationship
 
-        public virtual ICollection<Resevation> Resevations { get; set; }
+        public virtual ICollection<Reservation> Resevrations { get; set; }
 
         public Table()
         {
