@@ -9,7 +9,7 @@ using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 #endregion
 
-namespace eRestaruantSystem.DAL.Entities
+namespace eRestaurantSystem.DAL.Entities
 {
     public class Reservation
     {

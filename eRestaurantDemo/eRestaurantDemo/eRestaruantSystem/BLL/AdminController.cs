@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 #region Addtional NameSpaceses;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
-using eRestaruantSystem.DAL;
-using eRestaruantSystem.DAL.Entities;
+using eRestaurantSystem.DAL;
+using eRestaurantSystem.DAL.Entities;
 using System.ComponentModel;//for the Object Data Sources.
 #endregion
 
-namespace eRestaruantSystem.BLL
+namespace eRestaurantSystem.BLL
 {
     
     [DataObject]//required for the ODS
@@ -26,7 +26,7 @@ namespace eRestaruantSystem.BLL
             //Create and instance od the class
             //we will use a transaction to hold our query
 
-            using (var context = new eRestaruantContext())
+            using (var context = new eRestaurantContext())
             { 
                 //using method Syntax
                 return context.SpecialEvents.OrderBy(x => x.Description).ToList();

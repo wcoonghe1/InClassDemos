@@ -26,7 +26,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "eRestaurantWebSite(1)", "ht
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eRestaruantSystem", "eRestaruantSystem\eRestaruantSystem.csproj", "{D7EDA64E-5C89-4092-9745-0244FA21A7DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eRestaurantSystem", "eRestaruantSystem\eRestaurantSystem.csproj", "{D7EDA64E-5C89-4092-9745-0244FA21A7DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

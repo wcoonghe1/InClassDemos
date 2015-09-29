@@ -5,21 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 
 #region Addtional NameSpaceses;
-using eRestaruantSystem.DAL.Entities;
+using eRestaurantSystem.DAL.Entities;
 using System.Data.Entity;
 #endregion
 // this calss should only be accesible from classes inside this component library
 
 
 
-namespace eRestaruantSystem.DAL
+namespace eRestaurantSystem.DAL
 {
     //this class will inherit from DBcontext (entity Framework)
-    class eRestaruantContext : DbContext
+    class eRestaurantContext : DbContext
     {
 
         //create a constructor which will pass the connection string name to the DBcontext.
-        public eRestaruantContext() :base("name=EatIn")
+        public eRestaurantContext() :base("name=EatIn")
         {
             
         }
