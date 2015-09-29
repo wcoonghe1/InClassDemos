@@ -14,12 +14,41 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2">&nbsp;</td>
+            <td colspan="2" style="height: 32px"></td>
         </tr>
         <tr>
-            <td colspan="2" align="Center"><asp:GridView ID="ResevationList" runat="server"></asp:GridView>
+            <td colspan="2" align="Center"><asp:GridView ID="ResevationList" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataSourceID="ODSResevations" PageSize="15">
+                <Columns>
+                    <asp:BoundField DataField="CustomerName" HeaderText="Name" SortExpression="CustomerName" >
+                    <ItemStyle HorizontalAlign="Left" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="ReservationDate" HeaderText="Date" SortExpression="ReservationDate" DataFormatString="{0:MMM dd yyyy}" >
+                    <HeaderStyle HorizontalAlign="Center" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="NumberInParty" HeaderText="Size" SortExpression="NumberInParty" >
+                    <HeaderStyle HorizontalAlign="Right" />
+                    <ItemStyle HorizontalAlign="Right" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="ContactPhone" HeaderText="Phone" SortExpression="ContactPhone" >
+                    <HeaderStyle HorizontalAlign="Center" />
+                    <ItemStyle HorizontalAlign="Center" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="ReservationStatus" HeaderText="Status" SortExpression="ReservationStatus" >
+                    <HeaderStyle HorizontalAlign="Center" />
+                    <ItemStyle HorizontalAlign="Center" />
+                    </asp:BoundField>
+                </Columns>
+                <EmptyDataTemplate>
+                    NO data to display
+                </EmptyDataTemplate>
+                <PagerSettings Mode="NumericFirstLast" PageButtonCount="4" Position="TopAndBottom" />
+                </asp:GridView>
                 <asp:ObjectDataSource ID="ODSSpecialEvents" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="SpecialEvens_List" TypeName="eRestaurantSystem.BLL.AdminController"></asp:ObjectDataSource>
-                <asp:ObjectDataSource ID="ODSResevations" runat="server"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="ODSResevations" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetResevatoinsByEventCode" TypeName="eRestaurantSystem.BLL.AdminController">
+                    <SelectParameters>
+                        <asp:ControlParameter ControlID="SpecialEventList" Name="eventcode" PropertyName="SelectedValue" Type="String" />
+                    </SelectParameters>
+                </asp:ObjectDataSource>
             </td>
         </tr>
         <tr>

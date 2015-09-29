@@ -29,7 +29,29 @@ namespace eRestaurantSystem.BLL
             using (var context = new eRestaurantContext())
             { 
                 //using method Syntax
-                return context.SpecialEvents.OrderBy(x => x.Description).ToList();
+                //return context.SpecialEvents.OrderBy(x => x.Description).ToList();
+
+                //using query syntax
+
+                var results = from item in context.SpecialEvents
+                              orderby item.Description
+                              select item;
+                return results.ToList();                
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<Reservation> GetResevatoinsByEventCode(string eventcode)
+        {
+            
+            using (var context = new eRestaurantContext())
+            {
+                
+                var results = from item in context.Resevatoins
+                              where item.EventCode.Equals(eventcode)
+                              orderby item.CustomerName, item.ReservationDate
+                              select item;
+                return results.ToList();
 
             }
         }

@@ -14,7 +14,7 @@ namespace eRestaurantSystem.DAL.Entities
     public class Reservation
     {
         [Key]
-        public int ResrevationID { get; set; }
+        public int ReservationID { get; set; }
         [Required(ErrorMessage = "Sutomer name in required")]
         [StringLength(30, MinimumLength=5)]
         public string CustomerName { get; set; }
