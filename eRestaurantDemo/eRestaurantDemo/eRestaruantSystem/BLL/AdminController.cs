@@ -47,7 +47,7 @@ namespace eRestaurantSystem.BLL
             using (var context = new eRestaurantContext())
             {
                 
-                var results = from item in context.Resevatoins
+                var results = from item in context.Reservatoins
                               where item.EventCode.Equals(eventcode)
                               orderby item.CustomerName, item.ReservationDate
                               select item;

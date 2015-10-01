@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     
 
-    <table style="width: 85%">
+    <table align="Center" style="width: 85%">
         <tr>
             <td align="Right" style="height: 22px; width: 50%">Select an Event:</td>
             <td style="height: 22px">
@@ -45,17 +45,37 @@
                 <HeaderStyle BackColor="Gray" Font-Bold="True" ForeColor="Black" Height="25px" />
                 <PagerSettings Mode="NumericFirstLast" PageButtonCount="4" Position="TopAndBottom" />
                 </asp:GridView>
+                
+                </td>
+        </tr>
+        <tr>
+                <td colspan="2" align="Center" style="width: 50%">
                 <asp:ObjectDataSource ID="ODSSpecialEvents" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="SpecialEvens_List" TypeName="eRestaurantSystem.BLL.AdminController"></asp:ObjectDataSource>
                 <asp:ObjectDataSource ID="ODSResevations" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetResevatoinsByEventCode" TypeName="eRestaurantSystem.BLL.AdminController">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="SpecialEventList" Name="eventcode" PropertyName="SelectedValue" Type="String" />
                     </SelectParameters>
                 </asp:ObjectDataSource>
-            </td>
+                </td>
+            
         </tr>
         <tr>
-            <td style="width: 50%">&nbsp;</td>
-            <td>&nbsp;</td>
+            <td colspan="2" align="Center" style="width: 50%">
+                <asp:DetailsView ID="DetailsView1" runat="server" Height="50px" Width="125px" DataSourceID="ODSResevations" AutoGenerateRows="False" AllowPaging="True">
+                    <EmptyDataTemplate>
+                        No data to display
+                    </EmptyDataTemplate>
+                    <Fields>
+                        <asp:BoundField DataField="CustomerName" HeaderText="Name" />
+                        <asp:BoundField DataField="ReservationDate" DataFormatString="{0:MMM dd yyy h:mm tt}" HeaderText="Date" />
+                        <asp:BoundField DataField="NumberInParty" HeaderText="Size" />
+                        <asp:BoundField DataField="ContactPhone" HeaderText="Phone" />
+                        <asp:BoundField DataField="ReservationStatus" HeaderText="Status" />
+                    </Fields>
+                    <PagerSettings Mode="NextPrevious" />
+                </asp:DetailsView>
+            </td>
+            
         </tr>
         <tr>
             <td style="width:50%">&nbsp;</td>
