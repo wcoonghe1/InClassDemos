@@ -27,7 +27,7 @@ namespace eRestaurantSystem.DAL
         //setup of mapping DbSet<T> propeties
         //map an entity to a datebase table
         public DbSet<SpecialEvent> SpecialEvents { get; set; }
-        public DbSet<Reservation> Reservatoins { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Table> Tables { get; set; }
         public DbSet<Bill> Bills { get; set; }
         public DbSet<BillItem> BillItems { get; set; }
