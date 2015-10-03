@@ -42,6 +42,7 @@ namespace eRestaurantSystem.DAL.Entities
         //howeer, we can still create the virtual navigation property to acomodate this relationship
 
         public virtual ICollection<Table> Tables { get; set; }
+        public virtual ICollection<Bill> Bills { get; set; }
 
     }
 }
