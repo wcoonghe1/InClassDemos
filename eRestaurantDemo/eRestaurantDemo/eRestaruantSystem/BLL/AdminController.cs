@@ -91,5 +91,29 @@ namespace eRestaurantSystem.BLL
             }
         }
 
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<MenuCategoryItem> MenuCategoryItem_List()
+        {
+            using (var context = new eRestaurantContext())
+            {
+                var results = from menuitem in context.MenuCategories
+                              orderby menuitem.Description
+                              select new MenuCategoryItem 
+                              {
+                                  Description = menuitem.Description,
+                                  MenuItems = from row in menuitem.MenuItems                                                 
+                                                 select new MenuItems()
+                                                 {
+                                                     Description = row.Description,
+                                                     Price = row.CurrentPrice,
+                                                     Calories = row.Calories,
+                                                     Comment = row.Comment
+                                                 }
+                              };
+                return results.ToList();
+            }
+        }
+
     }
 }

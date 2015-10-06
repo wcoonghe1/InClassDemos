@@ -2,9 +2,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
 
-    <table align="Center" style="width: 100%">
+    <table align="center" style="width: 100%">
         <tr>
-            <td align="Right" style="height: 22px;">Select an Event:</td>
+            <td align="center" style="height: 22px;">Select an Event:</td>
             <td style="height: 22px">
                 <asp:DropDownList ID="SpecialEventList" runat="server" AppendDataBoundItems="True" DataSourceID="ODSSpecialEvents" DataTextField="Description" DataValueField="EventCode">
                 <asp:ListItem Value="z">Select Event</asp:ListItem>
