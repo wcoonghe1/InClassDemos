@@ -3,13 +3,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
 
     <h1>Special Events CRUD Using ListView and ODS</h1>
-    <%--Dont forget to add the primary key in the listview properties--%>
+    <%--Dont forget to add the primary key in the listview property, DataKeyName--%>
     <asp:ListView ID="SpecialEventsCRUD" runat="server" DataSourceID="ODSSpecialEvents" InsertItemPosition="FirstItem" DataKeyNames="EventCode">
         <AlternatingItemTemplate>
-            <tr style="background-color: #FFFFFF;color: #284775;">
+            <tr style="background-color: #b6b3b3;color: #284775;">
                 <td>
-                    <asp:Button ID="DeleteButton" runat="server" CommandName="Delete" Text="Delete" />
-                    <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
+                    <asp:Button ID="DeleteButton" runat="server" class="btn btn-danger" CommandName="Delete" Text="Delete" />
+                    <asp:Button ID="EditButton" runat="server" class="btn btn-info" CommandName="Edit" Text="Edit" />
                 </td>
                 <td>
                     <asp:Label ID="EventCodeLabel" runat="server" Text='<%# Eval("EventCode") %>' />
@@ -40,17 +40,17 @@
             </tr>
         </EditItemTemplate>
         <EmptyDataTemplate>
-            <table runat="server" style="background-color: #FFFFFF;border-collapse: collapse;border-color: #999999;border-style:none;border-width:1px;">
+            <table runat="server" style="background-color: #5D7B9D;border-collapse: collapse;border-color: #999999;border-style:none;border-width:1px;">
                 <tr>
                     <td>No data was returned.</td>
                 </tr>
             </table>
         </EmptyDataTemplate>
         <InsertItemTemplate>
-            <tr style="">
+            <tr style="background-color: #999999;">
                 <td>
-                    <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" />
-                    <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" />
+                    <asp:Button ID="InsertButton" class="btn btn-primary" runat="server" CommandName="Insert" Text="Insert" />
+                    <asp:Button ID="CancelButton" runat="server" class="btn btn-info" CommandName="Cancel" Text="Clear" />
                 </td>
                 <td>
                     <asp:TextBox ID="EventCodeTextBox" runat="server" Text='<%# Bind("EventCode") %>' />
@@ -64,10 +64,10 @@
             </tr>
         </InsertItemTemplate>
         <ItemTemplate>
-            <tr style="background-color: #E0FFFF;color: #333333;">
+            <tr style="background-color: #939393;color: #333333;">
                 <td>
-                    <asp:Button ID="DeleteButton" runat="server" CommandName="Delete" Text="Delete" />
-                    <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Edit" />
+                    <asp:Button ID="DeleteButton" class="btn btn-danger" runat="server" CommandName="Delete" Text="Delete" />
+                    <asp:Button ID="EditButton" runat="server" class="btn btn-info" CommandName="Edit" Text="Edit" />
                 </td>
                 <td>
                     <asp:Label ID="EventCodeLabel" runat="server" Text='<%# Eval("EventCode") %>' />
@@ -84,8 +84,8 @@
             <table runat="server">
                 <tr runat="server">
                     <td runat="server">
-                        <table id="itemPlaceholderContainer" runat="server" border="1" style="background-color: #FFFFFF;border-collapse: collapse;border-color: #999999;border-style:none;border-width:1px;font-family: Verdana, Arial, Helvetica, sans-serif;">
-                            <tr runat="server" style="background-color: #E0FFFF;color: #333333;">
+                        <table id="itemPlaceholderContainer" runat="server" border="1" style="background-color: #FFFFFF;border-collapse: collapse;border-color: #FFFFFF;border-style:none;border-width:1px;font-family: Verdana, Arial, Helvetica, sans-serif;">
+                            <tr runat="server" style="background-color: #7d8ea1;color: #333333;">
                                 <th runat="server"></th>
                                 <th runat="server">EventCode</th>
                                 <th runat="server">Description</th>
@@ -97,7 +97,7 @@
                     </td>
                 </tr>
                 <tr runat="server">
-                    <td runat="server" style="text-align: center;background-color: #5D7B9D;font-family: Verdana, Arial, Helvetica, sans-serif;color: #FFFFFF">
+                    <td runat="server" style="text-align: center;background-color: #5D7B9D;font-family: Verdana, Arial, Helvetica, sans-serif;color: #284775">
                         <asp:DataPager ID="DataPager1" runat="server">
                             <Fields>
                                 <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" ShowLastPageButton="True" />
@@ -124,7 +124,6 @@
                 </td>               
             </tr>
         </SelectedItemTemplate>
-
     </asp:ListView>
     
     <asp:ObjectDataSource ID="ODSSpecialEvents" runat="server" 
