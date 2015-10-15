@@ -20,7 +20,7 @@ namespace eRestaurantSystem.BLL
     [DataObject]//required for the ODS
     public class AdminController
     {
-
+        #region Quries
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<SpecialEvent> SpecialEvens_List()
         { 
@@ -114,6 +114,51 @@ namespace eRestaurantSystem.BLL
                 return results.ToList();
             }
         }
+        #endregion
 
-    }
-}
+        #region Add, Update, Delete of CRUD for CQRS
+        //add
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void SpecialEvents_Add(SpecialEvent item)
+        {   using (eRestaurantContext context = new eRestaurantContext())
+            {
+            //these methods are executed using an instant level item.
+            //setup a instance pointer and initialize to null
+            SpecialEvent added = null;
+            //setup the command to execute the add
+            added = context.SpecialEvents.Add(item);
+            //command is not executed until it is saved
+            context.SaveChanges();
+            }
+        }
+        //update
+        [DataObjectMethod(DataObjectMethodType.Update, false)]
+        public void SpecialEvents_Update(SpecialEvent item)
+        {
+            using (eRestaurantContext context = new eRestaurantContext())
+            {
+                context.Entry<SpecialEvent>(context.SpecialEvents.Attach(item)).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        //delete
+        [DataObjectMethod(DataObjectMethodType.Delete, false)]
+        public void SpecialEvents_Delete(SpecialEvent item)
+        {
+            using (eRestaurantContext context = new eRestaurantContext())
+            {
+                
+                //lookup the instance and record if found(set pointer to instance
+                SpecialEvent exising = context.SpecialEvents.Find(item.EventCode);
+                //setup the command to execute the delete
+                context.SpecialEvents.Remove(exising);
+                //command is not executed until it is saved
+                context.SaveChanges();
+            }
+        }
+        #endregion
+
+
+    }//end of class
+}//end of namespace
