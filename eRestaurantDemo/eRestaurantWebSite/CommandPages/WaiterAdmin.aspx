@@ -12,7 +12,7 @@
     <asp:DropDownList ID="WaiterList" runat="server" AppendDataBoundItems="True">
         <asp:ListItem Value="0">Select A Waiter</asp:ListItem>
     </asp:DropDownList>
-    <asp:LinkButton ID="FetchWaiter" runat="server">Fetch Waiter</asp:LinkButton>
+    <asp:LinkButton ID="FetchWaiter" runat="server" OnClick="FetchWaiter_Click">Fetch Waiter</asp:LinkButton>
     <asp:ObjectDataSource ID="ODSWaiter" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Waiters_List" TypeName="eRestaurantSystem.BLL.AdminController" OnSelected="CheckForException"></asp:ObjectDataSource>
 
     <table align="center" style="width: 90%">
