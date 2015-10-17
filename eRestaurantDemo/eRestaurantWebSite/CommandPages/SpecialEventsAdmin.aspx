@@ -1,8 +1,13 @@
 ﻿<%@ Page Title="Special Events CRUD" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="SpecialEventsAdmin.aspx.cs" Inherits="CommandPages_SpecialEventsAdmin" %>
 
+<%@ Register Src="~/UserControls/MessegeUserControl.ascx" TagPrefix="uc1" TagName="MessegeUserControl" %>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
 
     <h1>Special Events CRUD Using ListView and ODS</h1>
+    <%--added a user controll by dragging the file to this location--%>
+    <uc1:MessegeUserControl runat="server" ID="MessegeUserControl" />
     <%--Dont forget to add the primary key in the listview property, DataKeyName--%>
     <asp:ListView ID="SpecialEventsCRUD" runat="server" DataSourceID="ODSSpecialEvents" InsertItemPosition="FirstItem" DataKeyNames="EventCode">
         <AlternatingItemTemplate>
@@ -133,7 +138,11 @@
         UpdateMethod="SpecialEvents_Update" 
         SelectMethod="SpecialEvens_List"
         OldValuesParameterFormatString="original_{0}"         
-        TypeName="eRestaurantSystem.BLL.AdminController">
+        TypeName="eRestaurantSystem.BLL.AdminController" 
+        OnDeleted="CheckForException" 
+        OnInserted="CheckForException" 
+        OnSelected="CheckForException" 
+        OnUpdated="CheckForException">
     </asp:ObjectDataSource>
 </asp:Content>
 

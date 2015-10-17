@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="MessageUserControl.ascx.cs" Inherits="UserControls_MessageUserControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="MessegeUserControl.ascx.cs" Inherits="UserControls_MessegeUserControl" %>
 
 <asp:Panel ID="MessagePanel" runat="server">
     <div class="panel-heading">
