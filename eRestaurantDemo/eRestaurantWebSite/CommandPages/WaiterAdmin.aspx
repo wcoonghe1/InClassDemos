@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Site.master" AutoEventWireup="false" CodeFile="WaiterAdmin.aspx.vb" Inherits="CommandPages_WaiterAdmin" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="WaiterAdmin.aspx.cs" Inherits="CommandPages_WaiterAdmin" %>
+
 
 <%@ Register Src="~/UserControls/MessegeUserControl.ascx" TagPrefix="uc1" TagName="MessegeUserControl" %>
 
@@ -12,7 +13,7 @@
         <asp:ListItem Value="0">Select A Waiter</asp:ListItem>
     </asp:DropDownList>
     <asp:LinkButton ID="FetchWaiter" runat="server">Fetch Waiter</asp:LinkButton>
-    <asp:ObjectDataSource ID="ODSWaiter" runat="server"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="ODSWaiter" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Waiters_List" TypeName="eRestaurantSystem.BLL.AdminController" OnSelected="CheckForException"></asp:ObjectDataSource>
 
     <table align="center" style="width: 90%">
         <tr>
