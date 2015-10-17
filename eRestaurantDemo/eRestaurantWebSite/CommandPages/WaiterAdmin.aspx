@@ -9,7 +9,7 @@
     <uc1:MessegeUserControl runat="server" ID="MessegeUserControl" />
     <br />
     <asp:Label ID="Label1" runat="server" Text="Waiter Names"></asp:Label>
-    <asp:DropDownList ID="WaiterList" runat="server" AppendDataBoundItems="True">
+    <asp:DropDownList ID="WaiterList" runat="server" AppendDataBoundItems="True" DataSourceID="ODSWaiter" DataTextField="FullName" DataValueField="WaiterID">
         <asp:ListItem Value="0">Select A Waiter</asp:ListItem>
     </asp:DropDownList>
     <asp:LinkButton ID="FetchWaiter" runat="server" OnClick="FetchWaiter_Click">Fetch Waiter</asp:LinkButton>
