@@ -64,10 +64,10 @@
         </tr>
         <tr>
             <td>
-                <asp:LinkButton ID="WaiterAdd" runat="server">Insert</asp:LinkButton>
+                <asp:LinkButton ID="WaiterAdd" runat="server" OnClick="WaiterAdd_Click">Insert</asp:LinkButton>
             </td>
             <td>
-                <asp:LinkButton ID="WaiterUpdate" runat="server">Update</asp:LinkButton>
+                <asp:LinkButton ID="WaiterUpdate" runat="server" OnClick="WaiterUpdate_Click">Update</asp:LinkButton>
             </td>
         </tr>
     </table>

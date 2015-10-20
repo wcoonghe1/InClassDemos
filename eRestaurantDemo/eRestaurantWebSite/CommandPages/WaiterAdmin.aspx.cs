@@ -15,7 +15,11 @@ public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (Page.IsPostBack)
+        {
+            HireDate.Text = DateTime.Today.ToShortDateString();
+        }
+        
     }
     protected void CheckForException(object sender, ObjectDataSourceStatusEventArgs e)
     {
@@ -56,5 +60,63 @@ public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
         {
             ReleaseDate.Text = "";
         }
+    }
+    protected void WaiterUpdate_Click(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(WaiterID.Text))
+        {
+            MessegeUserControl.ShowInfo("Please Select a Waiter");
+        }
+        else
+        {
+            
+            Waiter item = new Waiter();
+            item.WaiterID = int.Parse(WaiterID.Text);
+            item.FirstName = FirstName.Text;
+            item.LastName = LastName.Text;
+            item.Address = Address.Text;
+            item.Phone = Phone.Text;
+            item.HireDate = DateTime.Parse(HireDate.Text);
+
+            if (string.IsNullOrEmpty(ReleaseDate.Text))
+            {
+                item.ReleaseDate = null;
+            }
+            else
+            {
+                item.ReleaseDate = DateTime.Parse(ReleaseDate.Text);
+            }
+            AdminController sysmgr = new AdminController();
+            sysmgr.Waiter_Update(item);
+            MessegeUserControl.ShowInfo("Waiter Updated.");
+        
+        }
+    }
+    protected void WaiterAdd_Click(object sender, EventArgs e)
+    {
+        //inline version of using messegeUserCOntroll
+        MessegeUserControl.TryRun(() =>
+            //remainder of the code is what would have gone in the externel method of ProcessRequest(Method Name)
+            {
+                Waiter item = new Waiter();
+                item.FirstName = FirstName.Text;
+                item.LastName = LastName.Text;
+                item.Address = Address.Text;
+                item.Phone = Phone.Text;
+                item.HireDate = DateTime.Parse(HireDate.Text);
+
+                if (string.IsNullOrEmpty(ReleaseDate.Text))
+                {
+                    item.ReleaseDate = null;
+                }
+                else 
+                {
+                    item.ReleaseDate = DateTime.Parse(ReleaseDate.Text);
+                }
+                AdminController sysmgr = new AdminController();
+                WaiterID.Text = sysmgr.Waiter_Add(item).ToString();
+                MessegeUserControl.ShowInfo("Waiter Added. ");                
+            }
+            );
     }
 }
