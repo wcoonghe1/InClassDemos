@@ -9,8 +9,8 @@
     <uc1:MessegeUserControl runat="server" ID="MessegeUserControl" />
     <br />
     <asp:Label ID="Label1" runat="server" Text="Waiter Names"></asp:Label>
-    <asp:DropDownList ID="WaiterList" runat="server" AppendDataBoundItems="True" DataSourceID="ODSWaiter" DataTextField="FullName" DataValueField="WaiterID">
-        <asp:ListItem Value="0">Select A Waiter</asp:ListItem>
+    <asp:DropDownList ID="WaiterList" runat="server" DataSourceID="ODSWaiter" DataTextField="FullName" DataValueField="WaiterID">
+        
     </asp:DropDownList>
     <asp:LinkButton ID="FetchWaiter" runat="server" OnClick="FetchWaiter_Click">Fetch Waiter</asp:LinkButton>
     <asp:ObjectDataSource ID="ODSWaiter" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Waiters_List" TypeName="eRestaurantSystem.BLL.AdminController" OnSelected="CheckForException"></asp:ObjectDataSource>
