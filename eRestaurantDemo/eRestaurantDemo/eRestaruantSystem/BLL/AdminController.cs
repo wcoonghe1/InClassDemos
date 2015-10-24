@@ -170,7 +170,7 @@ namespace eRestaurantSystem.BLL
                               orderby abillrow.BillDate, abillrow.Waiter.LastName, abillrow.Waiter.FirstName
                               select new WaiterBilling()
                               {
-                                  BillDate = new DateTime(abillrow.BillDate.Year, abillrow.BillDate.Month, abillrow.BillDate.Day),//this removes the Time from datetime
+                                  BillDate = abillrow.BillDate.Year + "/" + abillrow.BillDate.Month + "/" + abillrow.BillDate.Day,//this removes the Time from datetime, but Linq And SQl dont like to work with Date time so use custom concatination
                                   WaiterName = abillrow.Waiter.LastName + ", " + abillrow.Waiter.FirstName,
                                   BillID = abillrow.BillID,
                                   BillTotal = abillrow.Items.Sum(eachbillitemrow => eachbillitemrow.Quantity * eachbillitemrow.SalePrice),

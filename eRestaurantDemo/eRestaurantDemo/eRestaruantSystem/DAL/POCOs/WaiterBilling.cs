@@ -8,7 +8,7 @@ namespace eRestaurantSystem.DAL.POCOs
 {
     public class WaiterBilling
     {
-        public DateTime BillDate { get; set; }
+        public string BillDate { get; set; }
         public string WaiterName { get; set; }
         public int BillID { get; set; }
         public decimal BillTotal { get; set; }
