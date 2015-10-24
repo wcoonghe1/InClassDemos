@@ -356,7 +356,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!BillTotal.Value</Value>
+                              <Value>=Sum(Fields!BillTotal.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Normal</FontWeight>
