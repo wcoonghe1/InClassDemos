@@ -94,6 +94,7 @@
                         </asp:MenuItem>
                         <asp:MenuItem Text="Reports" Value="ReportsMenu">
                             <asp:MenuItem Text="Category Menu Items Report" NavigateUrl="~/Reports/CategoryMenuItemsReport.aspx"></asp:MenuItem>
+                            <asp:MenuItem Text="Waiter Billing for May Report" NavigateUrl="~/Reports/WaiterBillingReport.aspx"></asp:MenuItem>
                         </asp:MenuItem>                       
                     </Items>
                 </asp:Menu>)
