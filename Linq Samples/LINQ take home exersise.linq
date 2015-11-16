@@ -8,7 +8,6 @@
 </Query>
 
 //question 1
-
 from SkillRow in Skills
 where SkillRow.RequiresTicket == true
 orderby SkillRow.Description
@@ -48,5 +47,18 @@ select new
 
 
 //question 4
+from shiftrow in Shifts
+where shiftrow.PlacementContractID == 3
+select new
+{	
+	day = shiftrow.DayOfWeek,
+	empNO = shiftrow.NumberOfEmployees
+}
 
-
+//question 5
+from emp in EmployeeSkills
+where emp.YearsOfExperience == EmployeeSkills.Max(x =>x.YearsOfExperience)
+select new
+{
+	name = emp.Employee.FirstName + " " + emp.Employee.LastName	
+}
