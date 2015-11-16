@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\AdminController.cs" />
+    <Compile Include="BusinessRuleException.cs" />
     <Compile Include="DAL\DTOs\MenuCategoryItem.cs" />
     <Compile Include="DAL\DTOs\ReservationByDate.cs" />
     <Compile Include="DAL\Entities\Bill.cs" />
@@ -60,8 +61,10 @@
     <Compile Include="DAL\Entities\Table.cs" />
     <Compile Include="DAL\Entities\Waiter.cs" />
     <Compile Include="DAL\eRestaurantContext.cs" />
+    <Compile Include="DAL\POCOs\CategoryMenuItems.cs" />
     <Compile Include="DAL\POCOs\MenuItem.cs" />
     <Compile Include="DAL\POCOs\ReservationDetail.cs" />
+    <Compile Include="DAL\POCOs\WaiterBilling.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

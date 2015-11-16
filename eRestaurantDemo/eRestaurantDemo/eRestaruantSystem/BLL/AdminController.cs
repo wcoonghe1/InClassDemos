@@ -20,7 +20,7 @@ namespace eRestaurantSystem.BLL
     [DataObject]//required for the ODS
     public class AdminController
     {
-
+        #region Quries
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<SpecialEvent> SpecialEvens_List()
         { 
@@ -115,5 +115,171 @@ namespace eRestaurantSystem.BLL
             }
         }
 
-    }
-}
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<Waiter> Waiters_List()
+        { 
+            using (var context = new eRestaurantContext())
+            {
+                var results = from item in context.Waiters
+                              orderby item.LastName, item.FirstName
+                              select item;
+                return results.ToList();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public Waiter Get_Waiter_By_ID(int waiterid)
+        {
+            using (var context = new eRestaurantContext())
+            {
+                var results = from item in context.Waiters
+                              where item.WaiterID == waiterid
+                              select item;
+                return results.FirstOrDefault();//one row at most
+            }
+        }
+        #endregion//end of Queires
+        #region Reports
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<CategoryMenuItems> GetReportCategoryMenuItems()
+        {
+            using (eRestaurantContext context = new eRestaurantContext())
+            {
+                var results = from cat in context.Items
+                              orderby cat.Category.Description, cat.Description
+                              select new CategoryMenuItems
+                              {
+                                  CategoryDescription = cat.Category.Description,
+                                  ItemDescription = cat.Description,
+                                  Price = cat.CurrentPrice,
+                                  Calories = cat.Calories,
+                                  Comment = cat.Comment
+                              };
+
+                return results.ToList(); // this was .Dump() in Linqpad
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<WaiterBilling> GetWaiterBillingReport()
+        {
+            using (eRestaurantContext context = new eRestaurantContext())
+            {
+                var results = from abillrow in context.Bills
+                              where abillrow.BillDate.Month == 5
+                              orderby abillrow.BillDate, abillrow.Waiter.LastName, abillrow.Waiter.FirstName
+                              select new WaiterBilling()
+                              {
+                                  BillDate = abillrow.BillDate.Year + "/" + abillrow.BillDate.Month + "/" + abillrow.BillDate.Day,//this removes the Time from datetime, but Linq And SQl dont like to work with Date time so use custom concatination
+                                  WaiterName = abillrow.Waiter.LastName + ", " + abillrow.Waiter.FirstName,
+                                  BillID = abillrow.BillID,
+                                  BillTotal = abillrow.Items.Sum(eachbillitemrow => eachbillitemrow.Quantity * eachbillitemrow.SalePrice),
+                                  PartySize = abillrow.NumberInParty,
+                                  Contact = abillrow.Reservation.CustomerName
+                              };
+
+                return results.ToList(); // this was .Dump() in Linqpad
+            }
+        }
+        #endregion//end of Reports        
+        #region Add, Update, Delete of CRUD for CQRS
+        //add
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public void SpecialEvents_Add(SpecialEvent item)
+        {   using (eRestaurantContext context = new eRestaurantContext())
+            {
+            //these methods are executed using an instant level item.
+            //setup a instance pointer and initialize to null
+            SpecialEvent added = null;
+            //setup the command to execute the add
+            added = context.SpecialEvents.Add(item);
+            //command is not executed until it is saved
+            context.SaveChanges();
+            }
+        }
+        //update
+        [DataObjectMethod(DataObjectMethodType.Update, false)]
+        public void SpecialEvents_Update(SpecialEvent item)
+        {
+            using (eRestaurantContext context = new eRestaurantContext())
+            {
+                context.Entry<SpecialEvent>(context.SpecialEvents.Attach(item)).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        //delete
+        [DataObjectMethod(DataObjectMethodType.Delete, false)]
+        public void SpecialEvents_Delete(SpecialEvent item)
+        {
+            using (eRestaurantContext context = new eRestaurantContext())
+            {
+                
+                //lookup the instance and record if found(set pointer to instance
+                SpecialEvent exising = context.SpecialEvents.Find(item.EventCode);
+                //setup the command to execute the delete
+                context.SpecialEvents.Remove(exising);
+                //command is not executed until it is saved
+                context.SaveChanges();
+            }
+        }
+
+        //for waiter 
+        //add
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public int Waiter_Add(Waiter item)
+        {
+            using (eRestaurantContext context = new eRestaurantContext())
+            {
+                //these methods are executed using an instant level item.
+                //setup a instance pointer and initialize to null
+                Waiter added = null;
+                //setup the command to execute the add
+                added = context.Waiters.Add(item);
+                //command is not executed until it is saved
+                context.SaveChanges();
+                //the waiter instance added cointains the newly created record to SQL including the generated Primary key value\
+                return added.WaiterID;
+            }
+        }
+        //update
+        [DataObjectMethod(DataObjectMethodType.Update, false)]
+        public void Waiter_Update(Waiter item)
+        {
+            using (eRestaurantContext context = new eRestaurantContext())
+            {
+                context.Entry<Waiter>(context.Waiters.Attach(item)).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        //delete
+        [DataObjectMethod(DataObjectMethodType.Delete, false)]
+        public void Waiter_Delete(Waiter item)
+        {
+            using (eRestaurantContext context = new eRestaurantContext())
+            {
+
+                //lookup the instance and record if found(set pointer to instance
+                Waiter exising = context.Waiters.Find(item.WaiterID);
+                //setup the command to execute the delete
+                context.Waiters.Remove(exising);
+                //command is not executed until it is saved
+                context.SaveChanges();
+            }
+        }
+        #endregion
+        #region FrontDesk
+        [DataObjectMethod(DataObjectMethodType.Select,false)]
+        public DateTime GetLastBillDateTime()
+        {
+            using (eRestaurantContext context = new eRestaurantContext())
+            {
+                var result = context.Bills.Max(eachBillrow => eachBillrow.BillDate);
+                return result;
+            }
+        }
+        #endregion
+
+    }//end of class
+}//end of namespace
