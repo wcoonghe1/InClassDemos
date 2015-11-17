@@ -24,4 +24,34 @@ public partial class UsrXPages_FrontDesk : System.Web.UI.Page
         SearchTime.Text = info.ToString("hh:mm:ss");
 
     }
+    protected void SeatingGridView_SelectedIndexChanged(object sender, GridViewSelectEventArgs e)
+    {
+        //extarct the table number in the party and the awaiter ID from the grid view
+        //will also create the time from the mockDateTime contrtorls at the top of this form
+        //once the date uis collected then it will ne sent to the BLL for processeing
+        //the comman will be done under the control of the MessegeUserControll
+        //so if there is an error the MUS will handle it.
+        // we wll use the Inline MUC tryRun technique
+
+        MessegeUserControl.TryRun(() =>
+        {
+            //obtain the selected grid view
+            GridViewRow agvrow = SeatingGridView.Rows[e.NewSelectedIndex];
+            //asscessing a wen control on the gridview row
+            //uses .FindControl("xxx") as a datatype
+            string tablenumber = (agvrow.FindControl("TableNumber") as Label).Text;
+            string numberinparty = (agvrow.FindControl("NumberInParty")as TextBox).Text;
+            string waiterID = (agvrow.FindControl("WaiterList") as DropDownList).SelectedValue;
+            DateTime when = DateTime.Parse(SearchDate.Text).Add(TimeSpan.Parse(SearchTime.Text));
+
+            //standerd call insert a record to the DB
+            AdminController sysmgr = new AdminController();
+            sysmgr.SeatCustomer(when, byte.Parse(tablenumber), int.Parse(numberinparty), int.Parse(waiterID));
+
+            //refresh the gridview
+            SeatingGridView.DataBind();
+         }, "Customer Seated", "New Wall-in Customer has been saved"
+        );
+    }
+    
 }
