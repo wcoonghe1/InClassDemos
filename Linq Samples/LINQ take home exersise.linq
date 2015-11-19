@@ -1,6 +1,6 @@
-<Query Kind="Expression">
+<Query Kind="Statements">
   <Connection>
-    <ID>9eeebd23-33fd-4759-9b66-abb063432145</ID>
+    <ID>15120971-3f94-4230-b577-cc7bf5204633</ID>
     <Persist>true</Persist>
     <Server>.</Server>
     <Database>WorkSchedule</Database>
@@ -47,13 +47,18 @@ select new
 
 
 //question 4
-from shiftrow in Shifts
-where shiftrow.PlacementContractID == 3
-select new
-{	
-	day = shiftrow.DayOfWeek,
-	empNO = shiftrow.NumberOfEmployees
-}
+
+var results3 = 
+(from s in Shifts
+			  where s.PlacementContractID == 3
+			  group s.NumberOfEmployees by s.DayOfWeek into g
+              select new 
+			  { 			  				  
+			  	DayOfWeek = g.Key,
+				NumberOfEmployee = g
+			  });
+			  
+results3.Dump();
 
 //question 5
 from emp in EmployeeSkills

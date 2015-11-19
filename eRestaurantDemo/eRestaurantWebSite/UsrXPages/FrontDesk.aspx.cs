@@ -16,14 +16,7 @@ public partial class UsrXPages_FrontDesk : System.Web.UI.Page
     {
 
     }
-    protected void MockLastBillingDateTime_Click(object sender, EventArgs e)
-    {
-        AdminController sysmgr = new AdminController();
-        DateTime info = sysmgr.GetLastBillDateTime();
-        SearchDate.Text = info.ToString("yyyy-MM-dd");
-        SearchTime.Text = info.ToString("hh:mm:ss");
-
-    }
+   
     protected void SeatingGridView_SelectedIndexChanged(object sender, GridViewSelectEventArgs e)
     {
         //extarct the table number in the party and the awaiter ID from the grid view
@@ -42,7 +35,7 @@ public partial class UsrXPages_FrontDesk : System.Web.UI.Page
             string tablenumber = (agvrow.FindControl("TableNumber") as Label).Text;
             string numberinparty = (agvrow.FindControl("NumberInParty")as TextBox).Text;
             string waiterID = (agvrow.FindControl("WaiterList") as DropDownList).SelectedValue;
-            DateTime when = DateTime.Parse(SearchDate.Text).Add(TimeSpan.Parse(SearchTime.Text));
+            DateTime when = Mocker.MockDate.Add(Mocker.MockTime);
 
             //standerd call insert a record to the DB
             AdminController sysmgr = new AdminController();
