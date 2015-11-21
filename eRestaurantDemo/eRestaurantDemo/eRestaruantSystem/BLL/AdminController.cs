@@ -274,7 +274,7 @@ namespace eRestaurantSystem.BLL
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<ReservationCollection> ReservationsByTime(DateTime date)
         {
-            using (var context = new RestaurantContext())
+            using (var context = new eRestaurantContext())
             {
                 var result = (from data in context.Reservations
                               where data.ReservationDate.Year == date.Year
@@ -303,6 +303,12 @@ namespace eRestaurantSystem.BLL
                 return finalResult.OrderBy(x => x.Hour).ToList();
             }
         }
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public bool ReservationsForToday(DateTime date)
+        {
+            return ReservationsByTime(date).Count > 0 ? true : false;
+        }
+
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<SeatingSummary> SeatingByDateTime(DateTime date, TimeSpan time)
         {
@@ -434,7 +440,7 @@ namespace eRestaurantSystem.BLL
                     }
                     else if(!availabeseats.Exists(foreachseat => foreachseat.Table == tablenumber && foreachseat.Seating >= numberinparty))
                     {
-                        errors.Add("Insufficient seating capacity")
+                        errors.Add("Insufficient seating capacity");
                     }
                     //chcek if any erros excits
                     if(errors.Count > 0)

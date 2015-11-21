@@ -26,7 +26,7 @@ public partial class UsrXPages_FrontDesk : System.Web.UI.Page
         //so if there is an error the MUS will handle it.
         // we wll use the Inline MUC tryRun technique
 
-        MessegeUserControl.TryRun(() =>
+        MessageUserControl.TryRun(() =>
         {
             //obtain the selected grid view
             GridViewRow agvrow = SeatingGridView.Rows[e.NewSelectedIndex];
@@ -46,5 +46,51 @@ public partial class UsrXPages_FrontDesk : System.Web.UI.Page
          }, "Customer Seated", "New Wall-in Customer has been saved"
         );
     }
-    
+
+    protected void ReservationSummaryListView_ItemCommand(object sender, ListViewCommandEventArgs e)
+    {
+        //this is the mthod which will gather the seating  information for reservation and pass to the BLL for proceosessing
+
+        if (e.CommandName.Equals("Seat"))
+        { 
+            //execuion if the code wukk ve uynder tghe controll
+            MessageUserControl.TryRun(() =>
+            {
+                int reservationid = int.Parse(e.CommandArgument.ToString());
+                    int waiterid = int.Parse(WaiterDropDownList.SelectedValue);
+                    DateTime when = Mocker.MockDate.Add(Mocker.MockTime);
+                List<byte> selectedTables = new List<byte>();
+                //walk throug the list box row by row
+                foreach (ListItem item_tableid in ReservationTableListBox.Items)
+                {
+                    if (item_tableid.Selected)
+                    {
+                        selectedTables.Add(byte.Parse(item_tableid.Text.Replace("Table ", "")));
+                    }
+                }
+
+                //with all data gatherd, connet to your library controller, and send data for processing
+                AdminController sysmgr = new AdminController();
+                sysmgr.SeatCustomer(when reservationid, selectedTables, waiterid);
+
+                SeatingGridView.DataBind();
+                ReservationsRepeater.DataBind();
+            }, "customer Seated", "Reservation  customer has been saeated");
+        }
+
+    }
+    protected bool ShowReservationSeating()
+    {
+        bool anyReservationsToday = false;
+        MessageUserControl(() =>
+                {
+                    DateTime when = Mocker.MockDate.Add
+                        (Mocker.MockTIme);
+                    AdminController system = new AdminController();
+                    anyReservationsToday = sysmgr.ReservationForToday(when);
+                }
+
+            );
+        return anyReservationsToday;
+    }
 }
